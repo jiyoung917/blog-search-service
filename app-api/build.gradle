@@ -1,5 +1,6 @@
 dependencies {
     implementation project(':module-search-client')
+    implementation project(':module-domain')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.data:spring-data-commons:3.0.3'

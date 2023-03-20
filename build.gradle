@@ -43,10 +43,16 @@ subprojects {
 project(':app-api') {
     dependencies {
         implementation project(':module-search-client')
+        implementation project(':module-domain')
     }
 }
 
 project(':module-search-client') {
+    bootJar { enabled = false }
+    jar { enabled = true }
+}
+
+project(':module-domain') {
     bootJar { enabled = false }
     jar { enabled = true }
 }
