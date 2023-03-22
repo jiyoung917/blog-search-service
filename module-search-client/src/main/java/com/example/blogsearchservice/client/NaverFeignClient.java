@@ -14,7 +14,8 @@ public interface NaverFeignClient {
       produces = "application/json", consumes = "application/json")
   NaverBlogSearchResult getBlogSearchResult(@RequestParam("query") String query,
       @RequestParam(value = "sort", defaultValue = "sim") String sort,
-      @RequestParam(value = "start", defaultValue = "1") Integer page);
+      @RequestParam(value = "start", defaultValue = "1") Integer page,
+      @RequestParam(value = "size", defaultValue = "10") Integer size);
 
 
 }

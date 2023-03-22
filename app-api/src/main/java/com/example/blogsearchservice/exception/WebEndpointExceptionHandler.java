@@ -29,5 +29,12 @@ public class WebEndpointExceptionHandler {
     return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS).body(errorAttrs);
   }
 
+  @ExceptionHandler({ RuntimeException.class })
+  public ResponseEntity<Map<String, String>> handleRuntimeException(RuntimeException e) {
+    log.warn(e.getMessage());
+    Map<String, String> errorAttrs = Map.of("message", e.getMessage());
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorAttrs);
+  }
+
 }
 

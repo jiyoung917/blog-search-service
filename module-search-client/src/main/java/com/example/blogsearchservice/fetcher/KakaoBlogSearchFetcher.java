@@ -15,7 +15,8 @@ public class KakaoBlogSearchFetcher {
   private final KakaoFeignClient kakaoFeignClient;
 
   public KakaoBlogSearchResult get(FetcherRequestContext context) {
-    return kakaoFeignClient.getBlogSearchResult(context.getQuery(), context.getSort(), context.getPageNumber());
+    return kakaoFeignClient.getBlogSearchResult(
+        context.getQuery(), context.getSort(), context.getPageNumber(), context.getPageSize());
   }
 
 }

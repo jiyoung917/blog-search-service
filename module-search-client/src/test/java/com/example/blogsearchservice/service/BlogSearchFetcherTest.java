@@ -26,7 +26,7 @@ public class BlogSearchFetcherTest {
 
   @Test
   void test() {
-    FetcherRequestContext context = new FetcherRequestContext("개발자", "accu", 1);
+    FetcherRequestContext context = new FetcherRequestContext("개발자", "accu", 1, 10);
     doThrow(new RuntimeException("API call failed"))
       .when(kakaoBlogSearchFetcher).get(context);
 

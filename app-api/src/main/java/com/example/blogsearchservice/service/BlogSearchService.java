@@ -37,7 +37,8 @@ public class BlogSearchService {
     if (query == null || query.isEmpty()) throw new IllegalArgumentException("Query parameter required");
     if (pageable.getPageNumber() < 1) throw new IllegalArgumentException("Page number cannot be less than 1");
 
-    FetcherRequestContext fetcherRequestContext = new FetcherRequestContext(query, pageable.getSort().toString(), pageable.getPageNumber());
+    FetcherRequestContext fetcherRequestContext =
+        new FetcherRequestContext(query, pageable.getSort().toString(), pageable.getPageNumber(), pageable.getPageSize());
     BlogSearchApiResult blogSearchApiResult = fetcherFactory.getHandler().handle(fetcherRequestContext);
 
     return blogSearchApiResult != null ? blogSearchApiResult.getEntries() : Collections.emptyList();

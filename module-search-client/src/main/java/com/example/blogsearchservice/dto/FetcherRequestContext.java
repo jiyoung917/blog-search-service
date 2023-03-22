@@ -15,4 +15,6 @@ public class FetcherRequestContext {
 
   private int pageNumber;
 
+  private int pageSize;
+
 }

@@ -45,7 +45,7 @@ public class BlogSearchFacadeIntegrationTest {
     String query = "개발자";
     String sort = "accu";
     KakaoBlogSearchResult kakaoBlogSearchResult = new KakaoBlogSearchResult();
-    given(kakaoBlogSearchFetcher.get(new FetcherRequestContext(query, sort, 1))).willReturn(kakaoBlogSearchResult);
+    given(kakaoBlogSearchFetcher.get(new FetcherRequestContext(query, sort, 1, 10))).willReturn(kakaoBlogSearchResult);
 
     int numberOfExecute = 100;
     ExecutorService executorService = Executors.newFixedThreadPool(10);

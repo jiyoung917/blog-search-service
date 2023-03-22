@@ -13,6 +13,7 @@ public interface KakaoFeignClient {
       produces = "application/json", consumes = "application/json")
   KakaoBlogSearchResult getBlogSearchResult(@RequestParam("query") String query,
       @RequestParam(value = "sort", defaultValue = "accuracy") String sort,
-      @RequestParam(value = "page", defaultValue = "1") Integer page);
+      @RequestParam(value = "page", defaultValue = "1") Integer page,
+      @RequestParam(value = "size", defaultValue = "10") Integer size);
 
 }

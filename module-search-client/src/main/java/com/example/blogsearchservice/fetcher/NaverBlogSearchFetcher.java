@@ -15,7 +15,8 @@ public class NaverBlogSearchFetcher {
   private final NaverFeignClient naverFeignClient;
 
   public NaverBlogSearchResult get(FetcherRequestContext context) {
-    return naverFeignClient.getBlogSearchResult(context.getQuery(), context.getSort(), context.getPageNumber());
+    return naverFeignClient.getBlogSearchResult(
+        context.getQuery(), context.getSort(), context.getPageNumber(), context.getPageSize());
   }
 
 }
