@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,12 +29,15 @@ public class SearchKeyword {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @Column(nullable = false)
+  @Column(nullable = false, unique = true)
   private String keyword;
 
   @Column(name = "search_count")
   @ColumnDefault("1")
   private Long searchCount;
+
+  @Version
+  private Integer version;
 
   public SearchKeyword(String keyword) {
     this.keyword = keyword;
