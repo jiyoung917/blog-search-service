@@ -25,7 +25,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.example.blogsearchservice.dto.BlogSearchResult;
+import com.example.blogsearchservice.dto.BlogSearchApiResult.BlogSearchResultEntry;
 import com.example.blogsearchservice.fetcher.KakaoBlogSearchFetcher;
 import com.example.blogsearchservice.service.BlogSearchFacade;
 import com.example.blogsearchservice.service.BlogSearchService;
@@ -59,7 +59,7 @@ public class BlogSearchControllerTest {
   @Test()
   @DisplayName("1분당 50개의 토큰 생성으로 트래픽 제어를 한다.")
   void rateLimiting() throws Exception {
-    List<BlogSearchResult> response = new ArrayList<>();
+    List<BlogSearchResultEntry> response = new ArrayList<>();
     given(blogSearchFacade.getBlogSearchResult(any(), any())).willReturn(response);
 
     AtomicInteger successCount = new AtomicInteger();

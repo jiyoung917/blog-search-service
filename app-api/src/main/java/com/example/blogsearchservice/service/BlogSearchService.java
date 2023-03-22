@@ -1,6 +1,7 @@
 package com.example.blogsearchservice.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -9,13 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.blogsearchservice.domain.SearchKeyword;
-import com.example.blogsearchservice.dto.BlogSearchResult;
+import com.example.blogsearchservice.dto.BlogSearchApiResult;
+import com.example.blogsearchservice.dto.BlogSearchApiResult.BlogSearchResultEntry;
+import com.example.blogsearchservice.dto.FetcherRequestContext;
 import com.example.blogsearchservice.dto.HotKeywordInfo;
-import com.example.blogsearchservice.dto.KakaoBlogSearchResult;
-import com.example.blogsearchservice.dto.KakaoBlogSearchResult.KakaoBlogSearchEntry;
-import com.example.blogsearchservice.fetcher.KakaoBlogSearchFetcher;
 import com.example.blogsearchservice.repository.SearchKeywordRepository;
-import com.example.blogsearchservice.util.KakaoBlogSearchSort;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -28,35 +27,20 @@ public class BlogSearchService {
 
   private final SearchKeywordRepository searchKeywordRepository;
 
-  private final KakaoBlogSearchFetcher kakaoBlogSearchFetcher;
+  private final FetcherFactory fetcherFactory;
 
   private final RedisService redisService;
 
-  public List<BlogSearchResult> getBlogSearchResult(String query, Pageable pageable) {
+  public List<BlogSearchResultEntry> getBlogSearchResult(String query, Pageable pageable) {
     log.info("-- Start getting blog search result --");
 
     if (query == null || query.isEmpty()) throw new IllegalArgumentException("Query parameter required");
     if (pageable.getPageNumber() < 1) throw new IllegalArgumentException("Page number cannot be less than 1");
 
-    KakaoBlogSearchResult kakaoBlogSearchResult = kakaoBlogSearchFetcher.get(query,
-        KakaoBlogSearchSort.getRealString(pageable.getSort().toString()),
-        pageable.getPageNumber());
+    FetcherRequestContext fetcherRequestContext = new FetcherRequestContext(query, pageable.getSort().toString(), pageable.getPageNumber());
+    BlogSearchApiResult blogSearchApiResult = fetcherFactory.getHandler().handle(fetcherRequestContext);
 
-    List<BlogSearchResult> entries = new ArrayList<>();
-    if (kakaoBlogSearchResult != null) {
-      for (KakaoBlogSearchEntry entry : kakaoBlogSearchResult.getDocuments()) {
-        entries.add(BlogSearchResult.builder()
-            .title(entry.getTitle())
-            .contents(entry.getContents())
-            .dateTime(entry.getDateTime())
-            .thumbnail(entry.getThumbnail())
-            .url(entry.getUrl())
-            .blogName(entry.getBlogName())
-            .build());
-      }
-    }
-
-    return entries;
+    return blogSearchApiResult != null ? blogSearchApiResult.getEntries() : Collections.emptyList();
   }
 
   @Transactional

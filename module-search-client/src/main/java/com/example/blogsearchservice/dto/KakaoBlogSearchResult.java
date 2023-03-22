@@ -11,7 +11,8 @@ import lombok.Getter;
 @Getter
 public class KakaoBlogSearchResult {
 
-  private List<KakaoBlogSearchEntry> documents;
+  @JsonProperty("documents")
+  private List<KakaoBlogSearchEntry> entries;
 
   @Getter
   public static class KakaoBlogSearchEntry {
@@ -22,7 +23,7 @@ public class KakaoBlogSearchResult {
 
     @JsonProperty("datetime")
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSz")
-    private LocalDateTime dateTime;
+    private LocalDateTime postDateTime;
 
     private String thumbnail;
 

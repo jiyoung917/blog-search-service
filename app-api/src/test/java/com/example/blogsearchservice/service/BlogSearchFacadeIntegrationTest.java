@@ -18,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.TestPropertySource;
 
 import com.example.blogsearchservice.client.KakaoFeignClient;
+import com.example.blogsearchservice.dto.FetcherRequestContext;
 import com.example.blogsearchservice.dto.HotKeywordInfo;
 import com.example.blogsearchservice.dto.KakaoBlogSearchResult;
 import com.example.blogsearchservice.fetcher.KakaoBlogSearchFetcher;
@@ -44,7 +45,7 @@ public class BlogSearchFacadeIntegrationTest {
     String query = "개발자";
     String sort = "accu";
     KakaoBlogSearchResult kakaoBlogSearchResult = new KakaoBlogSearchResult();
-    given(kakaoBlogSearchFetcher.get(query, sort, 1)).willReturn(kakaoBlogSearchResult);
+    given(kakaoBlogSearchFetcher.get(new FetcherRequestContext(query, sort, 1))).willReturn(kakaoBlogSearchResult);
 
     int numberOfExecute = 100;
     ExecutorService executorService = Executors.newFixedThreadPool(10);

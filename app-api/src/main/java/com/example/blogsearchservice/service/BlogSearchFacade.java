@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.blogsearchservice.dto.BlogSearchResult;
+import com.example.blogsearchservice.dto.BlogSearchApiResult.BlogSearchResultEntry;
 import com.example.blogsearchservice.dto.HotKeywordInfo;
 
 import lombok.RequiredArgsConstructor;
@@ -18,11 +18,11 @@ public class BlogSearchFacade {
 
   private final BlogSearchService blogSearchService;
 
-  public List<BlogSearchResult> getBlogSearchResult(String query, Pageable pageable) throws InterruptedException {
+  public List<BlogSearchResultEntry> getBlogSearchResult(String query, Pageable pageable) throws InterruptedException {
     log.info("-- BlogSearchFacade process ---");
 
     int tryCount = 0;
-    List<BlogSearchResult> result = blogSearchService.getBlogSearchResult(query, pageable);
+    List<BlogSearchResultEntry> result = blogSearchService.getBlogSearchResult(query, pageable);
     while (true) {
       try {
         blogSearchService.upsertSearchKeywordInfo(query);

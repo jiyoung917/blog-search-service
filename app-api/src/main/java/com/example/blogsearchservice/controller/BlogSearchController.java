@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.blogsearchservice.dto.BlogSearchResult;
+import com.example.blogsearchservice.dto.BlogSearchApiResult.BlogSearchResultEntry;
 import com.example.blogsearchservice.dto.HotKeywordInfo;
 import com.example.blogsearchservice.exception.ExceedTrafficException;
 import com.example.blogsearchservice.service.BlogSearchFacade;
-import com.example.blogsearchservice.service.BlogSearchService;
 
 import io.github.bucket4j.Bucket;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +28,7 @@ public class BlogSearchController {
   private final BlogSearchFacade blogSearchFacade;
 
   @GetMapping("/blog")
-  public List<BlogSearchResult> getBlogSearchResult(@RequestParam String query,
+  public List<BlogSearchResultEntry> getBlogSearchResult(@RequestParam String query,
       @PageableDefault(page = 1) @SortDefault(sort = "accu") Pageable pageable) throws InterruptedException {
     log.info("Available tokens : " + bucket.getAvailableTokens());
 
