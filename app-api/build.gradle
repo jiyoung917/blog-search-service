@@ -1,9 +1,14 @@
+bootJar {
+    enabled = true
+}
+
 dependencies {
     implementation project(':module-search-client')
     implementation project(':module-domain')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.data:spring-data-commons:3.0.3'
+    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.0.1'
     implementation 'com.google.guava:guava:31.1-jre'
     implementation 'com.github.vladimir-bukhtoyarov:bucket4j-core:7.6.0'
     compileOnly 'org.projectlombok:lombok'
