@@ -1,5 +1,7 @@
 # blog-search-service
 
+* jar 파일 다운로드 링크: https://github.com/jiyoung917/blog-search-service/raw/89f1173d406d4c68b4aa211dad7f162cfc254c69/blog-search-service-0.0.1-SNAPSHOT.jar
+
 ## 주요 기술스택
 * SpringBoot3.0.4
 * Java17
